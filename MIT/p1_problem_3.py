@@ -1,16 +1,25 @@
 def alphabetical_longest_str(s):
-    result = []
-    temp = [s[0]]
-    for i in range(1, len(s), 1):
+    longest = []
+    cur_str = []
+    i = 1
+    while i < len(s):
+        if not cur_str:
+            cur_str.append(s[i-1])
+
         if s[i] >= s[i-1]:
-            temp.append(s[i])
+            cur_str.append(s[i])
+            if len(cur_str) > len(longest):
+                longest = cur_str
         else:
-            temp = [s[i]]
-            result = temp if len(temp) > len(result) else result
-    return result
+            cur_str = []
+        i += 1
+
+    return "".join(longest) if longest else s[0]
 
 
-print(alphabetical_longest_str("azcbobobegghakl"))
+if __name__ == '__main__':
+    x = input()
+    print(alphabetical_longest_str(x))
 
 """
 Assume s is a string of lower case characters.
