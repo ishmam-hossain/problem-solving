@@ -1,18 +1,122 @@
-if __name__ == '__main__':
-    n = int(input())
-    team_list = list(map(int, input().split(" ")))
+def get_count(teams):
+    counter = {}
+    for team in teams:
+        counter[team] = counter.get(team, 0) + 1
 
-    max_passenger = 4
+    result = 0
+
+    if 4 in counter:
+        result = counter[4]
+        counter[4] = 0
+
+    if 2 in counter:
+        if counter[2] % 2 == 0:
+            result += counter[2] // 2
+            counter[2] = 0
+        else:
+            result += counter[2] - 1
+            counter[2] = 1
+    if 3 in counter and 1 in counter:
+        if counter[3] == counter[1]:
+            result += counter[3]
+            counter[3] = counter[1] = 0
+
+    if 1 in counter and 2 in counter:
+        if counter[1] == counter[2]:
+            result += counter[1]
+            counter[1] = counter[2] = 0
+
+    if 3 in counter:
+        result += counter[3]
+        counter[3] = 0
+
+    if 1 in counter:
+        result += counter[1] // 4 if counter[1] % 4 == 0 else (counter[1] // 4) + 1
+        counter[1] = 0
+
+    for key in counter:
+        result += counter[key]
+
+    print(counter)
+    print(result)
+
+
+def new_way(a):
     taxi_count = 0
+    unvisited = []
+    a = sorted(a)[::-1]
 
-    for i, team in enumerate(team_list):
-        if team > 0:
-            if team == 4:
-                taxi_count += 1
-                team_list[i] = -1
-                print(team_list)
+    start = 0
+    end = len(a) - 1
 
-    print(taxi_count)
+    while start <= end:
+        temp = a[start] + a[end]
+        if start >= end:
+            return taxi_count + 1
+
+        elif temp == 4:
+            taxi_count += 1
+            start += 1
+            end -= 1
+
+        elif temp > 4:
+            taxi_count += 1
+            start += 1
+
+        elif temp < 4:
+            while end > start and temp <= 4:
+                if temp == 4:
+                    taxi_count += 1
+
+                print("in < ", start, end, a[start], a[end], "temp -> ", temp)
+                end -= 1
+                temp += a[end]
+            temp = 0
+
+            return taxi_count
+
+    return taxi_count
+
+
+def min_taxi(a):
+    return sum(a) // 4 + (1 if sum(a) % 4 != 0 else 0)
+
+
+def new_strategy(a):
+    taxi_count = 0
+    unvisited = []
+    a = sorted(a)[::-1]
+    print("after sort --> ", a)
+
+    start = 0
+    end = len(a) - 1
+
+    while start <= end:
+        temp = a[start] + a[end]
+        # if start >= end:
+        #     return taxi_count + 1
+
+        if temp == 4:
+            a[start] = a[end] = -1
+            taxi_count += 1
+            start += 1
+            end -= 1
+
+        elif temp > 4:
+            a[start] = -1
+            taxi_count += 1
+            start += 1
+
+    print("after processing --> ", a)
+
+            
+if __name__ == '__main__':
+    while 1:
+        n = int(input())
+        team_list = list(map(int, input().split(" ")))
+        # print(min_taxi(team_list))
+        # print(new_way(team_list))
+        print(new_strategy(team_list))
 
 
 """
