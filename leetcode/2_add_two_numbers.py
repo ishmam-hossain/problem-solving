@@ -1,5 +1,5 @@
-# Definition for singly-linked list.
 from math import log10
+
 
 class ListNode:
     def __init__(self, x, nxt=None):
@@ -38,6 +38,46 @@ class Solution:
         return a
 
 
+def PRINT(d):
+    if d is None:
+        return
+    PRINT(d.next)
+    print('-> ', end='')
+    print(d.val, end=' ')
+
+
+def get_digits(linked_list, out):
+    if linked_list is None:
+        return
+    out.append(linked_list.val)
+    get_digits(linked_list.next, out)
+    return out
+
+
+def reverse_linked_list(ll):
+    return ll[::-1]
+
+
+def new_add_test(ll1, ll2):
+    n1 = get_digits(ll1, [])
+    n2 = get_digits(ll2, [])
+
+    n = max(len(n1), len(n2))
+    _carry = 0
+    res = []
+    new_node = None
+    prev_node = None
+    for i in range(n):
+        local_sum = n1[i] + n2[i] + _carry
+        _carry = local_sum // 10
+        res.append(local_sum % 10)
+        new_node = ListNode(local_sum % 10)
+        new_node.next = prev_node
+        prev_node = new_node
+
+    return new_node
+
+
 l1_nxt_2 = ListNode(3)
 l1_nxt_1 = ListNode(4, l1_nxt_2)
 l1 = ListNode(2, l1_nxt_1)
@@ -46,12 +86,9 @@ l2_nxt_2 = ListNode(4)
 l2_nxt_1 = ListNode(6, l2_nxt_2)
 l2 = ListNode(5, l2_nxt_1)
 
-c = Solution()
-
-data = c.addTwoNumbers(l1, l2)
-while data.next:
-    print(vars(data.next))
-    data = data.next
-
+# c = Solution()
+# data = c.addTwoNumbers(l1, l2)
+# print(PRINT(data))
+PRINT(new_add_test(l1, l2))
 
 
