@@ -18,11 +18,31 @@ class Solution:
 
         return res.get(min(res.keys()))
 
+    def sort_then_find(self, arr):
+        arr.sort()
+        res = []
+        min_diff = 10 ** 5
+
+        for i in range(len(arr) - 1):
+            diff = abs(arr[i+1] - arr[i])
+            if diff == min_diff:
+                res.append([arr[i], arr[i+1]])
+            if diff < min_diff:
+                min_diff = diff
+                res = [[arr[i], arr[i+1]]]
+
+        return res
+
 
 s = Solution()
-print(s.minimumAbsDifference([4, 2, 1, 3]))
-print(s.minimumAbsDifference([1, 3, 6, 10, 15]))
-print(s.minimumAbsDifference([3, 8, -10, 23, 19, -4, -14, 27]))
+# print(s.minimumAbsDifference([4, 2, 1, 3]))
+# print(s.minimumAbsDifference([1, 3, 6, 10, 15]))
+# print(s.minimumAbsDifference([3, 8, -10, 23, 19, -4, -14, 27]))
+from random import randint
+print(s.sort_then_find([4, 2, 1, 3]))
+print(s.sort_then_find([1, 3, 6, 10, 15]))
+print(s.sort_then_find([3, 8, -10, 23, 19, -4, -14, 27]))
+# print(s.sort_then_find([randint(1, n) for n in range(100, 1000000)]))
 
 """
 Example 1:
