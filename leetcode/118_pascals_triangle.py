@@ -10,8 +10,14 @@ class Solution:
 
         for i in range(3, numRows + 1):
             temp = [None]*i
-            insert_range = i - 2
-            # for index in range(insert_range, )
+            temp[0] = temp[-1] = 1
+
+            for j in range(1, i-1):
+                temp[j] = res[-1][j-1] + res[-1][j]
+
+            res.append(temp)
+
+        return res
 
 
 s = Solution()
