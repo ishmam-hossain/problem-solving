@@ -31,7 +31,8 @@ class Solution:
                 is_pos = True
 
             if entered and got_out and c not in ('-', '+', ' '):
-                return 0
+                entered = got_out = is_pos = is_neg = False
+                # my_num = 0
 
             if is_neg and is_pos:
                 return 0
@@ -45,6 +46,24 @@ class Solution:
 
         return my_num
 
+    def new_way(self, str):
+        str = str.strip()
+        if str[0].isnumeric() or str[0] not in ('-', '+'):
+            return 0
+
+        is_started = False
+        arr = []
+
+        for c in str[1:]:
+            if not c.isdigit() and is_started:
+                return sum([n * 10 ** i for i, n in enumerate(arr[::-1])])
+            is_started = True
+            arr.append(int(c))
+
+        return sum([n * 10 ** i for i, n in enumerate(arr[::-1])])
+
 
 s = Solution()
-print(s.myAtoi("7.83389339.9883902"))
+# print(s.myAtoi("  -0012a42"))
+print(s.new_way("  -0012a42"))
+print(s.new_way("  12a42"))
