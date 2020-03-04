@@ -6,15 +6,20 @@ class TreeNode:
         self.right = None
 
 
+def get_height(root, h=0):
+    if root is None:
+        return h
+    h += 1
+    return max(get_height(root.left, h), get_height(root.right, h))
+
+
 class Solution:
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+    def isBalanced(self, root: TreeNode) -> bool:
         if root is None:
-            return False
-
-        if root.val == sum and root.left is None and root.right is None:
             return True
-
-        return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right, root.val)
+        if abs(get_height(root.left) - get_height(root.right)) > 1:
+            return False
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
 
 
 def stringToTreeNode(input):
@@ -52,4 +57,5 @@ def stringToTreeNode(input):
 
 
 s = Solution()
-print(s.hasPathSum(stringToTreeNode("[5,4,8,11,null,13,4,7,2,null,null,null,1]"), 22))
+print(s.isBalanced(stringToTreeNode("[1,2,2,3,3,null,null,4,4,1,1]")))
+
