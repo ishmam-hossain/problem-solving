@@ -73,6 +73,26 @@ def hasPathSum(self, root: TreeNode, _sum: int) -> bool:
         return False
 
     return root_to_leaf(root, [])
+def hasPathSum(self, root: TreeNode, _sum: int) -> bool:
+    def root_to_leaf(node, stack):
+        if node is None:
+            return
+        stack.append(node)
+        if node.left is None and node.right is None:
+            print([n.val for n in stack], sum([n.val for n in stack]))
+            if _sum == sum([n.val for n in stack]):
+                return True
+
+        root_to_leaf(node.left, stack)
+        root_to_leaf(node.right, stack)
+        stack.pop()
+
+        return False
+
+    if not root:
+        return False
+
+    return root_to_leaf(root, [])
 
 
 t = TreeNode(5)
