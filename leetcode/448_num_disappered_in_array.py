@@ -2,8 +2,7 @@ class Solution:
     def findDisappearedNumbers(self, nums):
         if not nums:
             return []
-        max_num = max(max(nums), len(nums))
-        res = [None] * max_num
+        res = [None] * len(nums)
 
         for n in nums:
             res[n-1] = n
