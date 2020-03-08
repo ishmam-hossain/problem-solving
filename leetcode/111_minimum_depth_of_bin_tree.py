@@ -28,3 +28,20 @@ class Solution:
                 q.append({'node': node.left, 'depth': depth+1})
             if node.right is not None:
                 q.append({'node': node.right, 'depth': depth+1})
+
+    def min_depth_recursive(self, root):
+        def get_depth(head, depth):
+            if head is None:
+                return depth
+            return min(get_depth(head.left, depth+1), get_depth(head.right, depth+1))
+
+        return get_depth(root, 0)
+
+
+t = TreeNode(1)
+t.left = TreeNode(2)
+t.left.left = TreeNode(3)
+t.right = TreeNode(4)
+
+s = Solution()
+print(s.min_depth_recursive(t))
