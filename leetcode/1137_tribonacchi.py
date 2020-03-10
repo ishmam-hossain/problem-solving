@@ -13,6 +13,19 @@ class Solution:
 
         return self.tribonacci(n-1) + self.tribonacci(n-2) + self.tribonacci(n-3)
 
+    def iterative_tribonacci(self, n):
+        f, s, t = 0, 1, 1
+        if n == 0:
+            return f
+
+        while n > 2:
+            f, s, t = s, t, f + s + t
+            n -= 1
+
+        return t
+
 
 _s = Solution()
-print(_s.tribonacci(25))
+for i in range(38):
+    print(_s.tribonacci(i) == _s.iterative_tribonacci(i))
+    print()
