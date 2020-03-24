@@ -1,31 +1,32 @@
-# Definition for a binary tree node.
+# # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
         self.val = x
         self.left = None
         self.right = None
 
+
 class Solution:
-    def pathSum(self, root: TreeNode, sum: int):
-        def find_path(head, cur_path, _s):
+    def pathSum(self, root: TreeNode, _sum: int):
+        all_paths = []
+
+        def get_paths(head, path):
             if head is None:
                 return
 
-            cur_path.append(head.val)
+            path.append(head.val)
 
-            if head.val == _s and head.left is None and head.right is None:
-                paths.append(cur_path)
-                # cur_path.pop()
-                return
-            else:
-                find_path(head.left, cur_path, _s - head.val)
-                find_path(head.right, cur_path, _s - head.val)
+            if not head.left and not head.right:
+                if sum(path) == _sum:
+                    all_paths.append(path[:])
 
-            cur_path.pop()
+            get_paths(head.left, path)
+            get_paths(head.right, path)
 
-        paths = []
-        find_path(root, [], sum)
-        return paths
+            path.pop()
+
+        get_paths(root, [])
+        return all_paths
 
 
 t = TreeNode(5)
