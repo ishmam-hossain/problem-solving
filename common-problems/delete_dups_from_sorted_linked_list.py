@@ -55,4 +55,10 @@ def removeDuplicates(head):
         else:
             cur = cur.next
     return head
+
+
 if __name__ == '__main__':
+    l = SinglyLinkedListNode(1)
+    l.next = SinglyLinkedListNode(1)
+    l.next.next = SinglyLinkedListNode(1)
+    removeDuplicates(l)
