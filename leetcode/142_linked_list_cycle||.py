@@ -4,30 +4,13 @@ class ListNode:
         self.val = x
         self.next = None
 
-
 class Solution:
-    def detectCycle(self, head: ListNode):
-        if not head or not head.next:
-            return ListNode(-1)
+    def detectCycle(self, head: ListNode) -> ListNode:
+        visited = []
+        while head:
+            if head in visited:
+                return head
+            visited.append(head)
+            head = head.next
 
-        slow = fast = head
-
-        while fast.next and fast.next.next:
-            if slow is fast:
-                return slow.val
-            if not slow.next or not fast.next.next:
-                return ListNode(-1)
-
-            slow = slow.next
-            fast = fast.next.next
-
-        return ListNode(-1)
-
-
-n1 = ListNode(1)
-# n1.next = ListNode(2)
-# n1.next.next = n1
-# n1.next.next.next = ListNode(1)
-
-s = Solution()
-print(s.detectCycle(n1))
+        return
