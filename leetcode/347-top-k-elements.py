@@ -27,6 +27,16 @@ def top_k_frequent(nums: List[int], k: int) -> List[int]:
     return res
 
 
+def top_k_with_sort(nums, k):
+        c = dict()
+        for n in nums:
+            c[n] = c.get(n, 0) + 1
+        cc = sorted(c.items(), key=lambda x: x[1], reverse=True)
+
+        res = [cc[i][0] for i in range(k)]
+        return res
+
+
 a = [1, 1, 2, 2, 2, 4, 5, 5, 5]
 ka = 2
 
