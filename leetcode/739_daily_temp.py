@@ -13,3 +13,18 @@ class Solution:
                     answer[i] = j - i
                     break
         return answer
+
+
+// Time - O(n)
+// Space - O(n)
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        answer = [0] * len(temperatures)
+        stack = []
+
+        for i, t in enumerate(temperatures):
+            while stack and t > stack[-1][1]:
+                last_val_idx, last_val = stack.pop()
+                answer[last_val_idx] = i - last_val_idx
+            stack.append([i, t])
+        return answer
